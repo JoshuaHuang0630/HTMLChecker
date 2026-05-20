@@ -20,4 +20,15 @@ public class HTMLManager
 	{
 		return tags;
 	}
+   
+   public String toString() {
+      String string = "";
+      int size = tags.size();
+      for (int i = 0; i < size; i ++) {
+         HTMLTag tag = tags.remove();
+         string += tag;
+         tags.add(tag);
+      }
+      return string;
+   }
 }
