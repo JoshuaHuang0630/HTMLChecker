@@ -1,3 +1,4 @@
+import javax.swing.text.html.HTML;
 import java.util.*;
 
 public class HTMLManager
@@ -23,7 +24,33 @@ public class HTMLManager
 
 	public void fixHTML()
 	{
-		Stack
+		Stack <HTMLTag> tags = new Stack <>();
+		int size = this.tags.size();
+		for (int i = 0; i < size; i++)
+		{
+			HTMLTag cur = this.tags.remove();
+			if (cur.isSelfClosing())
+			{
+				this.tags.add(cur);
+			}
+			else if (cur.isOpening())
+			{
+				this.tags.add(cur);
+				tags.push(cur);
+			}
+			else if (cur.isClosing())
+			{
+				HTMLTag top = tags.pop();
+				if (!top.equals(cur.getMatching()))
+				{
+					this.tags.add(cur.getMatching());
+				}
+			}
+		}
+		while (!tags.isEmpty())
+		{
+			this.tags.add(tags.pop().getMatching());
+		}
 	}
 
 	public String toString()
