@@ -65,6 +65,7 @@ public class HTMLManager
 		{
 			HTMLTag tag = tags.remove();
 			string += tag;
+			string = string.trim();
 			tags.add(tag);
 		}
 		return string;
