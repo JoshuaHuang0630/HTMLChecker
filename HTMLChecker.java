@@ -42,10 +42,10 @@ public class HTMLChecker {
         System.out.println("===============================");
 
         HTMLManager manager = getManager(file);
-        //System.out.println("Loaded tags: " + manager.getTags());
+        System.out.println("Loaded tags: " + manager.getTags());
         System.out.println("HTML: " + manager);
         System.out.println("Checking HTML for errors...");
-//        manager.fixHTML();
+        manager.fixHTML();
         System.out.println("HTML after fix: " + manager);
         return manager.toString();
     }

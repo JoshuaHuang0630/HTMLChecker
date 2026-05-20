@@ -21,6 +21,11 @@ public class HTMLManager
 		return tags;
 	}
 
+	public void fixHTML()
+	{
+		Stack
+	}
+
 	public String toString()
 	{
 		String string = "";
