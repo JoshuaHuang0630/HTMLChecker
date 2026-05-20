@@ -1,4 +1,3 @@
-import javax.swing.text.html.HTML;
 import java.util.*;
 
 public class HTMLManager
@@ -7,6 +6,7 @@ public class HTMLManager
 
 	public HTMLManager(Queue <HTMLTag> html)
 	{
+		tags = new LinkedList <>();
 		if (html == null)
 		{
 			throw new IllegalArgumentException();
@@ -24,7 +24,7 @@ public class HTMLManager
 
 	public void fixHTML()
 	{
-		Stack <HTMLTag> tags = new Stack <>();
+		Stack <HTMLTag> openings = new Stack <>();
 		int size = this.tags.size();
 		for (int i = 0; i < size; i++)
 		{
@@ -36,20 +36,24 @@ public class HTMLManager
 			else if (cur.isOpening())
 			{
 				this.tags.add(cur);
-				tags.push(cur);
+				openings.push(cur);
 			}
-			else if (cur.isClosing())
+			else if (cur.isClosing() && !openings.isEmpty())
 			{
-				HTMLTag top = tags.pop();
-				if (!top.equals(cur.getMatching()))
+				HTMLTag top = openings.pop();
+				if (top.equals(cur.getMatching()))
 				{
-					this.tags.add(cur.getMatching());
+					this.tags.add(cur);
+				}
+				else
+				{
+					this.tags.add(top.getMatching());
 				}
 			}
 		}
-		while (!tags.isEmpty())
+		while (!openings.isEmpty())
 		{
-			this.tags.add(tags.pop().getMatching());
+			this.tags.add(openings.pop().getMatching());
 		}
 	}
 
